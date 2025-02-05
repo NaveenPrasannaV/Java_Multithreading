@@ -62,7 +62,7 @@ class Notes extends Library implements Runnable {
 }
 
 // Main class where the program execution starts
-public class Demo {
+public class GettingIntoThread {
 
   public static void main(String[] args) {
     // Prints the name of the main thread
