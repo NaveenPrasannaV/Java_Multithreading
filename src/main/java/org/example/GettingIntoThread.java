@@ -88,6 +88,20 @@ public class GettingIntoThread {
     // Creating a new thread for Notes object and starting it (this will call run() in a new thread)
     Thread noteThread = new Thread(notes);
     noteThread.start();  // Starts the Notes thread, which will execute the run() method in a new thread
+
+    //Using a Lambda Runnable to simulate reading e -books on a computer
+    Runnable computer = () -> {
+      System.out.println(
+          "Thread: " + Thread.currentThread().getName());  // Prints the current thread's name
+      System.out.println("Reading e-books in the computer");  // Simulates reading e-books
+    };
+
+    // Calling run() directly - this executes in the main thread
+    computer.run();
+
+    // Running computer task in a separate thread
+    Thread computerThread = new Thread(computer);
+    computerThread.start();  // Starts a new thread to execute the lambda Runnable
   }
 
 }
