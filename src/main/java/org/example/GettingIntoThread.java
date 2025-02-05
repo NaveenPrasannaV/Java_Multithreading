@@ -89,7 +89,7 @@ public class GettingIntoThread {
     Thread noteThread = new Thread(notes);
     noteThread.start();  // Starts the Notes thread, which will execute the run() method in a new thread
 
-    //Using a Lambda Runnable to simulate reading e -books on a computer
+    //Using a Lambda Runnable to simulate reading e-books on a computer
     Runnable computer = () -> {
       System.out.println(
           "Thread: " + Thread.currentThread().getName());  // Prints the current thread's name
