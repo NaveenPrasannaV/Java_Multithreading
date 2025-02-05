@@ -102,6 +102,11 @@ public class GettingIntoThread {
     // Running computer task in a separate thread
     Thread computerThread = new Thread(computer);
     computerThread.start();  // Starts a new thread to execute the lambda Runnable
+
+    Thread laptop = new Thread(() -> {
+      System.out.println("Reading e-books in the Laptop ");
+    });
+    laptop.start(); // Starts the thread directly
   }
 
 }
