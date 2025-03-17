@@ -66,28 +66,31 @@ public class GettingIntoThread {
 
   public static void main(String[] args) {
     // Prints the name of the main thread
-    System.out.println("Thread: " + Thread.currentThread().getName());
-
-    // Creating a new Book object and starting the thread (calls run() method in a new thread)
-    Book b = new Book();
-    b.start();  // Starts the thread, which will run the overridden run() method in a separate thread
-
+    // System.out.println("Thread: " + Thread.currentThread().getName());
+    //
+    // // Creating a new Book object and starting the thread (calls run() method in a new thread)
+    // Book b = new Book();
+    // b.read();
+    // b.start();  // Starts the thread, which will run the overridden run() method in a separate thread
+    // System.out.println("Thread: " + Thread.currentThread().getName());
     // Creating a Library object and calling entry() method in the main thread
-    Library lib = new Library();
-    lib.entry();  // Main thread calls the entry() method of Library
+    // Library lib = new Library();
+    // lib.entry();  // Main thread calls the entry() method of Library
 
     // Creating a Notes object (it’s of type Library but an instance of Notes) and calling entry() method in the main thread
-    Library lib1 = new Notes();
-    lib1.entry();  // Main thread calls the overridden entry() method in Notes
+    // Library lib1 = new Notes();
+    // lib1.entry();  // Main thread calls the overridden entry() method in Notes
 
-    // Creating a Notes object and calling takeNotes() directly in the main thread (no new thread here)
-    Notes notes = new Notes();
-    notes.takeNotes();  // Main thread calls takeNotes() method of Notes directly
-    notes.run();  // Directly calling run() - runs in the main thread, not in a new thread
-
-    // Creating a new thread for Notes object and starting it (this will call run() in a new thread)
-    Thread noteThread = new Thread(notes);
-    noteThread.start();  // Starts the Notes thread, which will execute the run() method in a new thread
+    //Creating a Notes object and calling takeNotes() directly in the main thread (no new thread here)
+    // Notes notes = new Notes();
+    // notes.takeNotes();  // Main thread calls takeNotes() method of Notes directly
+    // notes.run();  // Directly calling run() - runs in the main thread, not in a new thread
+    //
+    // // Creating a new thread for Notes object and starting it (this will call run() in a new thread)
+    // Thread noteThread = new Thread(notes);
+    // noteThread.start();  // Starts the Notes thread, which will execute the run() method in a new thread
+    // System.out.println(
+    //     "Thread: " + Thread.currentThread().getName());
 
     //Using a Lambda Runnable to simulate reading e-books on a computer
     Runnable computer = () -> {
@@ -99,14 +102,18 @@ public class GettingIntoThread {
     // Calling run() directly - this executes in the main thread
     computer.run();
 
-    // Running computer task in a separate thread
+    //Running computer task in a separate thread
     Thread computerThread = new Thread(computer);
     computerThread.start();  // Starts a new thread to execute the lambda Runnable
 
     Thread laptop = new Thread(() -> {
       System.out.println("Reading e-books in the Laptop ");
+      System.out.println(
+          "Thread: " + Thread.currentThread().getName());
     });
     laptop.start(); // Starts the thread directly
+    System.out.println(
+        "Thread: " + Thread.currentThread().getName());
   }
 
 }
