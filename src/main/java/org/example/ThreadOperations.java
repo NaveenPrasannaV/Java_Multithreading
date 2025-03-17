@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 // Class representing an employee database accessed by multiple threads
 class Employees {
@@ -102,10 +103,44 @@ public class ThreadOperations {
     t3.join(); // Ensure t3 completes before main method exits
   }
 
+  public static String getValueInParallel() throws InterruptedException {
+    System.out.println(Thread.currentThread().getName() + " : Connecting with DB...");
+    Thread.sleep(1000);
+    System.out.println(Thread.currentThread().getName() + " : Data fetched successfully...");
+    return "User: Naveen Singh";
+  }
+
+  /**
+   * 1. First try the main() and getValueInParallel() 2. Next try ExecutionWithoutThread() 3.
+   * Finally try ExecutionWithThread()
+   */
   public static void main(String[] args) throws InterruptedException {
-    //ExecutionWithoutThread();
-    ExecutionWithThread();
-    System.out.println(Thread.currentThread().getName() + " Thread Exits...");
+    /**
+     *A simple illustration of Main() is responsible for UI creation, which takes about 1 second,
+     * while getValueInParallel() fetches data from the database, also taking about 1 second.
+     * Instead of having Main() handle everything sequentially, the execution is made parallel.
+     * Finally, the main thread waits until dbThread completes and adds the data to the UI using
+     * join().
+     */
+    System.out.println(Thread.currentThread().getName() + " : Welcome to Bank Service....");
+    System.out.println(Thread.currentThread().getName() + " : Loading... the UI");
+    AtomicReference<String> name = new AtomicReference<>();
+    Thread dbThread = new Thread(() -> {
+      try {
+        name.set(getValueInParallel());
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+    });
+    Thread.sleep(1000);
+    System.out.println(Thread.currentThread().getName() + " : UI ready...");
+    dbThread.start();
+    dbThread.join();
+    System.out.println(Thread.currentThread().getName() + " : Hello, " + name);
+
+     //ExecutionWithoutThread();
+     //ExecutionWithThread();
+    System.out.println(Thread.currentThread().getName() + " : Thread Exits...");
   }
 
 }
